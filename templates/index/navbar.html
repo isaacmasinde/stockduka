@@ -1,0 +1,38 @@
+{%if request.user.is_staff%}
+{%include 'stockadmin/adminnavbar.html'%}
+{%else%}
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top mb-3">
+        <a href="#" class="navbar-brand"><span id="logo">Stockduka<span id="cart" class="badge badge-primary badge-pill cart">{%if not count%} 0 {%else%} {{count}} {%endif%}</span><i class="fa fa-cart-plus cart"></i></span></a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#Menu4">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse"  id="Menu4">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'index'%}"><i class="fa fa-home"></i> SHOP</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link cart" href="{%url 'cart'%}"><i class="fa fa-cart-arrow-down"></i> CART</a>
+                </li>
+                {%if request.user.is_authenticated%}
+                <li class="nav-item">
+                    <a class="nav-link"href="{%url 'orders'%}"><i class="fa fa-superpowers"></i> ORDERS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"href="{%url 'profile'%}"><i class="fa fa-cog fa-spin"></i> PROFILE</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"href="{% url 'logout'%}"><i class="fa fa-user-o"></i> LOGOUT</a>
+                </li>
+                {%else%}
+                <li class="nav-item">
+                    <a class="nav-link"href="{%url 'login'%}"><i class="fa fa-user-o"></i>LOGIN</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"href="{%url 'register'%}"><i class="fa fa-arrow-right"></i> REGISTER</a>
+                </li>
+                {%endif%}               
+            </ul>
+        </div>
+    </nav>
+    {%endif%}

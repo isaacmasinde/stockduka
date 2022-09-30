@@ -1,0 +1,95 @@
+{%extends 'index/base.html'%}
+{%block content%}
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-lg-6 col-12 order-md-2">
+			<div class="card">
+				{%if error%}
+					<div class="card-header">
+						{{error}}
+					</div>
+				{%endif%}
+				<div class="card-body">
+					<form class="needs-validation" method="POST">
+						{%csrf_token%}
+						<label class="detail">Personal details</label>
+						<div class="row my-2">
+							<div class="col-6 my-2">
+								<label>Firstname</label>
+								<input type="text" name="fname" class="form-control" required="">
+							</div>
+							<div class="col-6 my-2">
+								<label>Last Name</label>
+								<input type="text" name="lname" class="form-control" required="">
+							</div>
+						</div>
+						<div class="row my-2">
+							<div class="col-12 my-2">
+								<label>Contact</label>
+								<input type="tel"  id="username" placeholder="+254712345678" name="contact" class="form-control" required="">
+							</div>
+						</div>
+						<label class="detail">Business Details</label>
+						<div class="row my-2">
+							<div class="col-6 my-2">
+								<label>Name</label>
+								<input type="text" name="bizname" class="form-control" required="">
+							</div>
+							<div class="col-6 my-2">
+								<label>Location</label>
+								<textarea name="bizloc" class="form-control"></textarea>
+							</div>
+						</div>
+						<label class="detail">Security Details</label>
+						<div class="row my-2">
+							<div class="col-6 my-2">
+								<label>Password</label>
+								<input type="password" name="password" id="pass1" class="form-control" required="">
+							</div>
+							<div class="col-6 my-2">
+								<label>Confirm</label>
+								<input type="password" id="pass2" name="confirmpass" class="form-control" required="">
+							</div>
+						</div>
+						<div class="row my-2">
+							<div class="col-12">
+								<button type="submit" class="btn btn-block btn-primary">Register</button>
+							</div>
+						</div>						
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+    $("#username").change(function (e) {
+      var username = $(this).val();
+
+      $.ajax({
+        url: '{%url 'validate'%}',
+        data: {
+          'username': username
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken) {
+          	alert('Phone number already in use!')
+            document.getElementById("username").value="";
+          }
+        }
+      });
+
+    });
+     $("#pass2").change(function(e){
+		e.preventDefault();
+		var password1= $("#pass1").val();
+		var password2= $(this).val();
+		if(password1 !== password2){
+			alert("Error! passwords dont match")
+			document.getElementById("pass1").value="";
+			document.getElementById("pass2").value="";
+		}
+	});
+ </script>
+{%endblock content%}

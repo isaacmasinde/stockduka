@@ -1,0 +1,56 @@
+{%extends 'index/base.html'%}
+{%block content%}
+<div class='row mt-5 d-flex justify-content-center mx-1'>
+        <div class="col-12 col-md-4 mt-3">
+            <div class="form-group has-search">
+            	<form method='POST' action='{%url 'search'%}'>
+            		{%csrf_token%}
+            		<div class="row">
+            			<div class="col-8">
+                			<input type="text" class="form-control" name="search" id='search' placeholder="Search Item" required="">
+                		</div>
+                		<div class="col-4">
+                			<button class="btn btn-block btn-primary" type="submit">Search</button>
+                		</div>
+                	</div>
+            	</form>
+            </div>
+        </div>
+</div>
+<div class="container">
+	<div class="row my-2 infinite-container">
+	{%for x in page_obj%}
+		<div class="col-md-2 col-sm-4 col-6 my-2 infinite-item">
+			<div class="card">
+				<img src="{{x.Pic.url}}" class="card-img-top">
+				<div class="card-body">
+					<span class="desc">{{x.Name}}</span>
+					<br>
+					<span class="desc">Ksh {{x.Sold}} per {{x.Item.Measure}}</span>
+					<br> 
+					{%if x.Instock%}
+					<div  class="dev row" id="dev{{x.id}}">
+						<div class="col-12 my-1">
+							<input type="number" name="{{x.id}}"  id="q{{x.id}}" value="1" min="1" max="{{x.Quantity}}" class="in">
+						</div>
+						<div class="col-12 my-1">
+							<button class="btn btn-warning buy btn-block" num="#num{{x.id}}" q2="#{{x.Name}}" name="{{x.Name}}" q="#q{{x.id}}" id2="q{{x.id}}">Buy</button>
+						</div>
+					</div>
+					{%else%}
+					<span class="outstock" id="dev2{{x.id}}">Out of stock</span>
+					{%endif%}
+				</div>
+			</div>
+		</div>
+	{%endfor%}
+	</div>
+	<div class="pagination">
+		<span class="step-links">
+		{% if page_obj.has_next %}
+		<a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}" class="carda"></a>
+		{% endif %}
+		</span>
+</div>
+</div>
+{%endblock content%}

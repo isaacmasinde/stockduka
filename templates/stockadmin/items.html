@@ -1,0 +1,78 @@
+{%extends 'stockadmin/base.html'%}
+{%block content%}
+<div class="container">
+	<div class="row">
+		<div class="col-md-5">
+			<div class="card">
+				<div class="card-body">
+					<form class="needs-validation" method="POST">
+						{%csrf_token%}
+						<div class="row">
+							<div class="col-md-12">
+								<label>Category</label>
+								<select class="form-control" name="category">
+									{%for x in category%}
+									<option value="{{x.id}}" class="form-control">{{x.Name}}</option>
+									{%endfor%}
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>Item Name</label>
+								<input type="text" class="form-control" name="item">
+							</div>
+							<div class="col-md-6">
+								<label>Measure  e.g Kg </label>
+								<input type="text" class="form-control" name="measure">
+							</div>
+						</div>
+						<div class="row my-2">
+							<div class="col-md-12 my-2">
+								<button class="btn btn-warning btn-block" type="submit">Add</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="card">
+				<div class="card-body">
+					<table class="table table-condensed table-responsive">
+						<thead>
+							<th>Category</th>
+							<th>Name</th>
+							<th>Measured In</th>
+							<th>Brands</th>
+						</thead>
+							{%for x in page_obj%}
+							<tr>
+								<td>{{x.Category.Name}}</td>
+								<td>{{x.Name}}</td>
+								<td>{{x.Measure}}</td>
+								<th>{{x.brand_set.all.count}}</th>
+							</tr>
+							{%endfor%}
+					</table>
+<div class="pagination">
+		<span class="step-links">
+		{% if page_obj.has_previous %}
+		<a href="?page=1" class="carda">&laquo; first</a>
+		<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+		{% endif %}
+		<span class="current">
+		Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+		</span>
+		{% if page_obj.has_next %}
+		<a href="?page={{ page_obj.next_page_number }}" class="carda">next</a>
+		<a href="?page={{ page_obj.paginator.num_pages }}" class="carda">last &raquo;</a>
+		{% endif %}
+		</span>
+</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{%endblock content%}

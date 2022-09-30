@@ -1,0 +1,40 @@
+{%extends 'index/base.html'%}
+{%block title%}Orders{%endblock title%}
+{%block content%}
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-md-6">
+			<div class="card">
+			{%if orders%}
+			<div class="card-body">
+			<table class="table table-condensed table-responsive">
+				<thead>
+					<th>Item</th>
+					<th>Quantity</th>
+					<th>Bill</th>
+					<th>Date/Time</th>
+					<th>Status</th>
+					{%for x in orders%}
+					<tr>
+						<td>{{x.Brand.Name}} </td>
+						<td>{{x.Quantity}}</td>
+						<td>{{x.Bill}}</td>
+						<td>{{x.Wakati}}</td>
+						<td><span class="badge badge-warning badge-pill">{{x.Status}}</span></td>
+					</tr>
+					{%endfor%}
+				</thead>
+			</table>
+		</div>
+			{%else%}
+		<div class="card-body">
+			<div class="card-text">
+				You have no orders yet! <a class="carda" href="{%url 'index'%}">Shop.</a>
+			</div>
+		</div>
+			{%endif%}
+		</div>
+		</div>
+	</div>
+</div>
+{%endblock content%}

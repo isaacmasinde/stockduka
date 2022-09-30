@@ -1,0 +1,96 @@
+<hr>
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-md-3">
+			<p class="heading">About</p>
+			<p class="cont">Stockduka is focused on making product acquisition for retailers easier by offering a one stop place for all your stock needs.</p>
+			<p><i class="fa fa-twitter box"></i> <i class="fa fa-facebook box"></i> <i class="fa fa-instagram box"></i> <i class="fa fa-whatsapp box"></i></p>
+		</div>
+		<div class="col-12 col-md-3">
+			<p class="heading">Links</p>
+			<div class="cont">
+				<p><a href="{%url 'index'%}"><i class="fa fa-arrow-right"></i> Home</a></p>
+				<p><a href="{%url 'cart'%}"><i class="fa fa-arrow-right"></i> Cart</a></p>
+				<p><a href="{%url 'orders'%}"><i class="fa fa-arrow-right"></i> Orders</a></p>
+				<p><a href="{%url 'profile'%}"><i class="fa fa-arrow-right"></i> Profile</a></p>
+			</div>
+		</div>
+		<div class="col-12 col-md-3">
+			<div class="cont">
+				<p class="heading">Services</p>
+				<p><i class="fa fa-arrows-v"></i> Delivery.</p>
+				<p><i class="fa fa-arrows-v"></i> Stock Management.</p>
+				<p><i class="fa fa-arrows-v"></i> Quick Books.</p>
+				<p><i class="fa fa-arrows-v"></i> Goods Importing.</p>
+			</div>
+		</div>
+		<div class="col-12 col-md-3">
+			<div class="cont">
+				<p class="heading">Need to bip us?</p>
+				<p><i class="fa fa-map-marker"></i>  Bungoma, Kenya</p>
+				<p><i class="fa fa-phone"></i> +254703206442</p>
+				<p><i class="fa fa-envelope"></i> contact@stockduka.co.ke</p>
+			</div>
+		</div>
+	</div>
+</div>
+<hr>
+<div class="credits">
+	<center><p class="cretext">&copy; Stockduka 2020. All rights reserved.</p></center>
+</div>
+<script type="text/javascript">
+	$(".cart").click(function (e) {
+		e.preventDefault()
+		if ($('#cart').text() != '0'){
+			window.location.href='{% url 'cart'%}'
+		}
+		});
+</script>
+<script type="text/javascript">
+    $(".buy").on("click", buy);
+     $(".cart").on("click",cart);
+ function cart(){
+ 			window.location.href='{%url 'cart'%}';
+ }
+function buy(e) {
+		var me=$(this);
+      var name = $(this).attr('name');
+      var num = $(this).attr('num');
+      var q = $(this).attr('q');
+      var q2 = $(this).attr('q2');
+      var id2 = $(this).attr('id2');
+      me.text('Buying..')
+      var quantity = $(q).val();
+      $.ajax({
+        url: '{%url 'addon'%}',
+        data: {
+          'name': name,
+          'quantity':quantity,
+        },
+        dataType: 'json',
+        success: function (data) {
+        document.getElementById(id2).max=data.maxim;
+        $("#cart").text(data.count)
+        me.text('bought')
+        if (data.maxim == 0){
+		window.location.href='{%url 'index'%}';
+        }
+        }
+      });
+    };
+$( document ).ajaxStop(function() {
+    $(".buy").off();
+    $(".buy").on("click", buy);
+    $(".cart").off();
+    $(".cart").on("click", cart);
+})
+    var infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0],
+      onBeforePageLoad: function () {
+        $('.loading').show();
+      },
+      onAfterPageLoad: function ($items) {
+        $('.loading').hide();
+      }
+    });
+  </script>

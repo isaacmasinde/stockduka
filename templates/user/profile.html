@@ -1,0 +1,54 @@
+{%extends 'index/base.html'%}
+{%block content%}
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-lg-6 col-12 order-md-2">
+			<div class="card">
+				{%if error%}
+					<div class="card-header">
+						{{error}}
+					</div>
+				{%endif%}
+				<div class="card-body">
+					<form class="needs-validation" method="POST">
+						{%csrf_token%}
+						<label class="detail">Personal details</label>
+						<div class="row my-2">
+							<div class="col-6 my-2">
+								<label>Firstname</label>
+								<input type="text" name="fname" class="form-control" value="{{user.Firstname}}" required="">
+							</div>
+							<div class="col-6 my-2">
+								<label>Last Name</label>
+								<input type="text" name="lname" class="form-control" value="{{user.Secondname}}" required="">
+							</div>
+						</div>
+						<div class="row my-2">
+							<div class="col-12 my-2">
+								<label>Contact</label>
+								<input type="tel" pattern="[+]{1}[0-9]{12}" placeholder="+254712345678" name="contact" class="form-control" value="{{user.Contact}}" required="">
+							</div>
+						</div>
+						<label class="detail">Business Details</label>
+						<div class="row my-2">
+							<div class="col-6 my-2">
+								<label>Name</label>
+								<input type="text" name="bizname" class="form-control" value="{{biz.Name}}" required="">
+							</div>
+							<div class="col-6 my-2">
+								<label>Location</label>
+								<textarea name="bizloc" class="form-control">{{biz.Location}}</textarea>
+							</div>
+						</div>
+						<div class="row my-2">
+							<div class="col-12">
+								<button type="submit" class="btn btn-block btn-success">Update</button>
+							</div>
+						</div>						
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{%endblock content%}

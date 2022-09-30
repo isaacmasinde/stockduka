@@ -1,0 +1,254 @@
+{%extends 'index/base.html'%}
+{%block title%}{%endblock title%}
+{%block content%}
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="card">
+				<div class="card-body">
+					<table class="table table-responsive">
+						<thead>
+							<th>Bill</th>
+							<th>Amount(Ksh)</th>
+							<th>Payable</th>
+						</thead>
+						<tr>
+							<td>Order</td>
+							<td>{{cart.Total}}</td>
+							<td>On Items delivery</td>
+						</tr>
+						<tr>
+							<td>Delivery Fee</td>
+							<td>50.00</td>
+							<td>On Items delivery</td>
+						</tr>
+						<tr>
+							<th>Total</th>
+							<th>{{total}}</th>
+							<th>On Item delivery</th>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		{%if request.user.is_authenticated%}
+		<div class="col-12 my-2 col-md-6">
+			<div class="card">
+				<div class="card-body">
+					<form class="need-validation" method="POST">
+						{%csrf_token%}
+						<label class="detail">Personal details</label>
+						<div class="row">
+							<div class="col-md-6 col-12 my-2">
+								<label>Firstname</label>
+								<input type="text" name="fname" class="form-control" value="{{user.Firstname}}" readonly="">
+							</div>
+							<div class="col-md-6 col-12 my-2">
+								<label>Secondname</label>
+								<input type="text" name="lname" class="form-control" value="{{user.Secondname}}" readonly="">
+							</div>
+						</div>
+						<div class="row my-2">
+							<div class="col-12 my-2">
+								<label>Contact</label>
+								<input type="text" name="" class="form-control" value="{{user.Contact}}" readonly="">
+							</div>
+						</div>
+						<label class="detail">Business Details</label>
+						<div class="row my-2">
+							<div class="col-6 my-2">
+								<label>Name</label>
+								<input type="text" name="bizname" value="{{biz.Name}}" class="form-control" readonly="">
+							</div>
+							<div class="col-6 my-2">
+								<label>Location</label>
+								<textarea name="bizloc"  class="form-control"  readonly="">{{biz.Location}}</textarea>
+							</div>
+						</div>
+						<label class="detail">Delivery Details</label>
+						<div class="row">
+							<div class="col-12 my-2">
+								<label>Delivery location</label>
+								<textarea rows="4" name="loc" placeholder="Please provide us with a detail description of your Location e.g landmarks."  class="form-control"  ></textarea>
+							</div>							
+						</div>
+						<button type="submit" class="btn btn-success btn-block">Finish</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		{%else%}
+		<div class="col-md-8 col-lg-6 col-12 my-2 order-md-2" id="register">
+			<div class="card">
+				{%if error%}
+					<div class="card-header">
+						{{error}}
+					</div>
+				{%endif%}
+				<div class="card-body">
+					<form class="needs-validation" method="POST" id="regform">
+						{%csrf_token%}
+						<label class="detail">Personal details</label>
+						<div class="row my-2">
+							<div class="col-6 my-2">
+								<label>Firstname</label>
+								<input type="text" name="fname" class="form-control" required="">
+							</div>
+							<div class="col-6 my-2">
+								<label>Last Name</label>
+								<input type="text" name="lname" class="form-control" required="">
+							</div>
+						</div>
+						<div class="row my-2">
+							<div class="col-12 my-2">
+								<label>Contact</label>
+								<input type="tel"  id="username" placeholder="+254712345678" name="contact" class="form-control" required="">
+							</div>
+						</div>
+						<label class="detail">Business Details</label>
+						<div class="row my-2">
+							<div class="col-6 my-2">
+								<label>Name</label>
+								<input type="text" name="bizname" class="form-control" required="">
+							</div>
+							<div class="col-6 my-2">
+								<label>Location</label>
+								<textarea name="bizloc" class="form-control"></textarea>
+							</div>
+						</div>
+						<label class="detail">Security Details</label>
+						<div class="row my-2">
+							<div class="col-6 my-2">
+								<label>Password</label>
+								<input type="password" name="password" id="pass1" class="form-control" required="">
+							</div>
+							<div class="col-6 my-2">
+								<label>Confirm</label>
+								<input type="password" id="pass2" name="confirmpass" class="form-control" required="">
+							</div>
+						</div>
+						<div class="row my-2">
+							<div class="col-12">
+								<button type="submit" class="btn btn-block btn-primary">Register</button>
+							</div>
+						</div>						
+					</form>
+					<p>Already have an account?<a id="openlogin" class="carda" href="#">Login</a></p>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 col-md-6 my-2" id="loginform">
+			<div class="card">
+				{%if error%}
+					<div class="card-header">
+						{{error}}
+					</div>
+				{%endif%}
+				<div class="card-body">
+					<form class="needs-validation" method="GET" id="logform">
+						{%csrf_token%}
+						<div class="row my-2">
+							<div class="col-12 my-2">
+								<label>Phonenumber</label>
+								<input type="tel" class="form-control" pattern="[+]{1}[0-9]{12}" name="username" required="">
+							</div>
+						</div>
+						<div class="row my-2">
+							<div class="col-12 my-2">
+								<label>Password</label>
+								<input type="password" class="form-control" name="password" required="">
+							</div>
+						</div>
+						<div class="row my-2">
+							<div class="col-12 my-2">
+								<button type="submit" class="btn btn-primary btn-block">Login</button>
+							</div>
+						</div>
+					</form>
+					<p>No account?<a id="openreg" href="#" class="carda" >Register</a></p>
+				</div>
+			</div>
+		</div>
+		{%endif%}
+	</div>
+</div>
+<script>
+	document.getElementById("register").style.display="none";
+    $("#username").change(function (e) {
+      var username = $(this).val();
+
+      $.ajax({
+        url: '{%url 'validate'%}',
+        data: {
+          'username': username
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken) {
+          	alert('Phone number already in use!')
+            document.getElementById("username").value="";
+          }
+        }
+      });
+
+    });
+     $("#pass2").change(function(e){
+		e.preventDefault();
+		var password1= $("#pass1").val();
+		var password2= $(this).val();
+		if(password1 !== password2){
+			alert("Error! passwords dont match")
+			document.getElementById("pass1").value="";
+			document.getElementById("pass2").value="";
+		}
+	});
+     	$("#openlogin").click(function(e){
+		e.preventDefault();
+		document.getElementById("register").style.display="none";
+		document.getElementById("loginform").style.display="inline-block";
+	});
+	$("#openreg").click(function(e){
+		e.preventDefault();
+		document.getElementById("loginform").style.display="none";
+		document.getElementById("register").style.display="inline-block";
+	});
+		$("#regform").submit(function(e){
+		e.preventDefault();
+		var formdata = $("#regform").serialize();
+		$.ajax({
+        url: '{%url 'ajaxregister'%}',
+        data: formdata,
+        dataType: 'json',
+        method:'POST',
+        success: function (data){
+          if (data.loggedin) {
+          	alert('Register was successful!');
+          	window.location.href="";
+          }
+          else{
+          	alert("Wrong data provided!");
+          }
+        }
+      });
+	});
+
+	$("#logform").submit(function(e){
+		e.preventDefault();
+		var formdata = $("#logform").serialize();
+		$.ajax({
+        url: '{%url 'ajaxlogin'%}',
+        data: formdata,
+        dataType: 'json',
+        success: function (data) {
+          if (data.loggedin) {
+          	alert('Login was successful!');
+          	window.location.href="";
+          }
+          else{
+          	alert("Wrong credentials");
+          }
+        }
+      });
+	});
+ </script>
+{%endblock content%}

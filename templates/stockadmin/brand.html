@@ -1,0 +1,50 @@
+{%extends 'stockadmin/base.html'%}
+{%block content%}
+<div class="container">
+	<div class="row">
+		<div class="col-md-7">
+			<div class="card">
+				<div class="card-body">
+					<table class="table table-condensed table-responsive">
+						<thead>
+							<th>Name</th>
+							<th>Bought</th>
+							<th>Sold</th>
+							<th>Quantity</th>
+							<th>Instock</th>
+						</thead>
+							{%for x in page_obj%}
+							<tr>
+								<td>{{x.Item.Name}} {{x.Name}}</td>
+								<td>{{x.Bought}}</td>
+								<td>{{x.Sold}}</td>
+								<td>{{x.Quantity}}</td>
+								{%if x.Instock%}
+								<td><span class="badge badge-primary badge-pill">Yes</span></td>
+								{%else%}
+								<td><span class="badge badge-warning badge-pill">No</span></td>
+								{%endif%}
+							</tr>
+							{%endfor%}
+					</table>
+<div class="pagination">
+		<span class="step-links">
+		{% if page_obj.has_previous %}
+		<a href="?page=1" class="carda">&laquo; first</a>
+		<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+		{% endif %}
+		<span class="current">
+		Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+		</span>
+		{% if page_obj.has_next %}
+		<a href="?page={{ page_obj.next_page_number }}" class="carda">next</a>
+		<a href="?page={{ page_obj.paginator.num_pages }}" class="carda">last &raquo;</a>
+		{% endif %}
+		</span>
+</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{%endblock content%}

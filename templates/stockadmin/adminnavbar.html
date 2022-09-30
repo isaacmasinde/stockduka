@@ -1,0 +1,36 @@
+   <nav class="navbar navbar-expand-sm navbar-dark bg-dark ">
+        <a href="#" class="navbar-brand"><span id="logo">Stockduka Admin</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#Menu4">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse"  id="Menu4">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'users'%}">USERS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'items'%}">STAFF</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'categories'%}">CATEGORIES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'items'%}">ITEMS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'brands'%}"> BRANDS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle dropdown-toggle-split" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">ORDERS</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#">PENDING</a>
+                        <a class="dropdown-item" href="#">ONROUTE</a>
+                        <a class="dropdown-item" href="#">DELIVERED</a>
+                    </div>
+                </li>             
+                <li class="nav-item">
+                    <a class="nav-link"href="{%url 'logout'%}"><i class="fa fa-cog fa-spin"></i> LOGOUT</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
